@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Base</string>
+
+    <string name="list">列表测试</string>
+    <string name="popup">弹窗测试</string>
+    <string name="dialog">对话框测试</string>
+    <string name="event">事件测试</string>
+    <string name="click">点我点我点我!!</string>
+    <string name="download">下载测试</string>
+    <string name="pick">时间选择</string>
+    <string name="dao">数据库测试</string>
+    <string name="insert">插入数据</string>
+    <string name="update">修改数据</string>
+    <string name="delete">删除数据</string>
+    <string name="query">查找数据</string>
+
+    <string name="news_image">新闻图片</string>
+</resources>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.kuky.base.view.activity.EventActivity">
+
+    <data>
+
+        <variable
+            name="event"
+            type="com.kuky.base.view.activity.EventActivity"/>
+    </data>
+
+    <Button
+        style="@style/Base.TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:onClick="@{event::eventTrans}"
+        android:text="@string/click"
+        android:textAllCaps="false"
+        android:textSize="14sp"/>
+
+</layout>

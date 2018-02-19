@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.kuky.base.view.activity.MainActivity">
+
+    <data>
+
+        <variable
+            name="main"
+            type="com.kuky.base.view.activity.MainActivity"/>
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp">
+
+            <TextView
+                android:id="@+id/down_state"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@color/colorAccent"
+                android:gravity="center"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:visibility="gone"
+                tools:text="state"/>
+
+            <Button
+                android:id="@+id/list"
+                style="@style/Base.TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/down_state"
+                android:layout_marginTop="12dp"
+                android:onClick="@{main::toNewsList}"
+                android:text="@string/list"
+                android:textAllCaps="false"
+                android:textSize="14sp"/>
+
+            <Button
+                android:id="@+id/popup"
+                style="@style/Base.TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/list"
+                android:onClick="@{main::showPopup}"
+                android:text="@string/popup"
+                android:textAllCaps="false"
+                android:textSize="14sp"/>
+
+            <Button
+                android:id="@+id/dialog"
+                style="@style/Base.TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/popup"
+                android:onClick="@{main::showDialog}"
+                android:text="@string/dialog"
+                android:textAllCaps="false"
+                android:textSize="14sp"/>
+
+            <Button
+                android:id="@+id/event"
+                style="@style/Base.TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/dialog"
+                android:onClick="@{main::eventTrans}"
+                android:text="@string/event"
+                android:textAllCaps="false"
+                android:textSize="14sp"/>
+
+            <Button
+                android:id="@+id/down"
+                style="@style/Base.TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/event"
+                android:onClick="@{main::apkDown}"
+                android:text="@string/download"
+                android:textAllCaps="false"
+                android:textSize="14sp"/>
+
+            <Button
+                android:id="@+id/pick"
+                style="@style/Base.TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/down"
+                android:onClick="@{main::timePick}"
+                android:text="@string/pick"
+                android:textAllCaps="false"
+                android:textSize="14sp"/>
+
+            <Button
+                android:id="@+id/dao"
+                style="@style/Base.TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/pick"
+                android:onClick="@{main::database}"
+                android:text="@string/dao"
+                android:textAllCaps="false"
+                android:textSize="14sp"/>
+        </RelativeLayout>
+    </ScrollView>
+</layout>

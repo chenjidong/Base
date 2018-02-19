@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.kuky.base.view.activity.DaoActivity">
+
+    <data>
+
+        <variable
+            name="dao"
+            type="com.kuky.base.view.activity.DaoActivity"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:orientation="vertical">
+
+        <Button
+            style="@style/Base.TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{dao::insertData}"
+            android:text="@string/insert"
+            android:textAllCaps="false"
+            android:textSize="14sp"/>
+
+        <Button
+            style="@style/Base.TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{dao::updateData}"
+            android:text="@string/update"
+            android:textAllCaps="false"
+            android:textSize="14sp"/>
+
+        <Button
+            style="@style/Base.TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{dao::queryData}"
+            android:text="@string/query"
+            android:textAllCaps="false"
+            android:textSize="14sp"/>
+
+        <Button
+            style="@style/Base.TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{dao::deleteData}"
+            android:text="@string/delete"
+            android:textAllCaps="false"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/operate_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:lineSpacingExtra="4dp"
+            android:textColor="@color/colorAccent"
+            android:textSize="14sp"
+            tools:text="@string/insert"/>
+    </LinearLayout>
+</layout>

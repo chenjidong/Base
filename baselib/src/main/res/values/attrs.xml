@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="androidWheelView">
+        <attr name="loop_textSize" format="float"/>
+        <attr name="loop_lineSpace" format="float"/>
+        <attr name="loop_centerTextColor" format="integer"/>
+        <attr name="loop_outerTextColor" format="integer"/>
+        <attr name="loop_dividerTextColor" format="integer"/>
+        <attr name="loop_itemsVisibleCount" format="integer"/>
+        <attr name="loop_isLoop" format="boolean"/>
+        <attr name="loop_initialPosition" format="integer"/>
+        <attr name="loop_scaleX" format="float"/>
+    </declare-styleable>
+
+    <declare-styleable name="TagLayout">
+        <attr name="horizontal_space" format="dimension"/>
+        <attr name="vertical_space" format="dimension"/>
+        <attr name="max_line" format="integer"/>
+        <attr name="div_avg" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="SwipeMenuLayout">
+        <attr name="swipeEnable" format="boolean"/>
+        <attr name="ios" format="boolean"/>
+        <attr name="leftSwipe" format="boolean"/>
+    </declare-styleable>
+
+</resources>
