@@ -5,6 +5,7 @@ import com.kuky.base.view.adapter.NewsAdapter
 import com.kuky.base.view.fragment.NewsFragment
 import dagger.Module
 import dagger.Provides
+import javax.inject.Singleton
 
 /**
  * @author Kuky
@@ -15,6 +16,7 @@ class NewsFragmentModule(newsFragment: NewsFragment, closeRecycle: Boolean = fal
     var mNewsFragment = newsFragment
     var mCloseRecycle = closeRecycle
 
+    @Singleton
     @Provides
     fun provideNewsPresenter(): NewsPresenter {
         return NewsPresenter(this.mNewsFragment)

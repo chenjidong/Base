@@ -9,6 +9,7 @@ import com.kuky.base.view.dialog.ListDialog
 import com.kuky.base.view.popup.ListPopup
 import dagger.Module
 import dagger.Provides
+import javax.inject.Singleton
 
 /**
  * @author Kuky
@@ -23,6 +24,7 @@ class MainActivityModule(mainActivity: MainActivity, animStyle: Int = R.style.an
     var mPopupWidth = popupWidth
     var mPopupHeight = popupHeight
 
+    @Singleton
     @Provides
     fun provideMainPresenter(): MainPresenter {
         return MainPresenter(this.mMainActivity)
