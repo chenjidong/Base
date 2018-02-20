@@ -10,6 +10,7 @@ object C {
     val BASE = "http://v.juhe.cn/"
     val KEY = "ef69c9ea662b4ca4ac768d4f70b921af"
     val TOP = "top"
+    val SPORT = "tiyu"
 
     /**
      * Download

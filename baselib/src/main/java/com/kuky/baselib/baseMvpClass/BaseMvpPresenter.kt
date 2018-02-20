@@ -3,8 +3,8 @@ package com.kuky.baselib.baseMvpClass
 /**
  * @author Kuky
  */
-abstract class BaseMvpPresenter<V : BaseMvpViewImpl> {
-    protected var mView: V? = null
+abstract class BaseMvpPresenter<in V : BaseMvpViewImpl> {
+    private var mView: V? = null
 
     fun attachView(view: V) {
         this.mView = view

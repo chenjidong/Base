@@ -4,7 +4,8 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.kuky.base.R
 import com.kuky.base.databinding.ActivityNewsBinding
-import com.kuky.base.view.fragment.TopNewsFragment
+import com.kuky.base.entity.C
+import com.kuky.base.view.fragment.NewsFragment
 import com.kuky.baselib.baseAdapter.BaseFragmentPagerAdapter
 import com.kuky.baselib.baseClass.BaseActivity
 
@@ -22,8 +23,8 @@ class NewsActivity : BaseActivity<ActivityNewsBinding>() {
     }
 
     override fun initActivity(savedInstanceState: Bundle?) {
-        fragments.add(TopNewsFragment())
-        fragments.add(TopNewsFragment())
+        fragments.add(NewsFragment().setNewsType(C.TOP))
+        fragments.add(NewsFragment().setNewsType(C.SPORT))
 
         vpAdapter = BaseFragmentPagerAdapter(supportFragmentManager, fragments, titles)
         mViewBinding.newsVp.adapter = vpAdapter

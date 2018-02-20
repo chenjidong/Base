@@ -9,8 +9,8 @@ import com.kuky.baselib.baseMvpClass.BaseMvpPresenter
  * @author Kuky
  */
 class MainPresenter(mainView: MainContract.IMainView) : BaseMvpPresenter<MainContract.IMainView>(), MainContract.IMainPresenter {
-    private var mMainView = mainView
 
+    private var mMainView = mainView
     private var mMainModel: MainContract.IMainModel = MainModel()
 
     override fun setListToPopupAndDialog() {

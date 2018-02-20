@@ -13,10 +13,12 @@ import android.view.Gravity
 import android.view.KeyEvent
 import android.view.View
 import com.kuky.base.R
+import com.kuky.base.component.DaggerMainActivityComponent
 import com.kuky.base.contract.MainContract
 import com.kuky.base.databinding.ActivityMainBinding
 import com.kuky.base.entity.C
 import com.kuky.base.event.TransEvent
+import com.kuky.base.module.MainActivityModule
 import com.kuky.base.presenter.MainPresenter
 import com.kuky.base.view.dialog.ListDialog
 import com.kuky.base.view.popup.ListPopup
@@ -38,19 +40,21 @@ import zlc.season.rxdownload3.RxDownload
 import zlc.season.rxdownload3.core.*
 import java.io.File
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 @SuppressLint("SetTextI18n")
-class MainActivity : BaseMvpActivity<MainContract.IMainView, MainPresenter, ActivityMainBinding>(),
+open class MainActivity : BaseMvpActivity<MainContract.IMainView, MainPresenter, ActivityMainBinding>(),
         MainContract.IMainView {
 
-    private lateinit var listPopup: ListPopup
-    private lateinit var listDialog: ListDialog
+    @Inject lateinit var mainPresenter: MainPresenter
+    @Inject lateinit var listPopup: ListPopup
+    @Inject lateinit var listDialog: ListDialog
+    @Inject lateinit var mHandler: Handler
     private var mDisposable: Disposable? = null
     private var readyExit = false
-    private val mHandler = Handler()
 
     override fun initPresenter(): MainPresenter {
-        return MainPresenter(this@MainActivity)
+        return mainPresenter
     }
 
     override fun getLayoutId(): Int {
@@ -64,10 +68,15 @@ class MainActivity : BaseMvpActivity<MainContract.IMainView, MainPresenter, Acti
     override fun initActivity(savedInstanceState: Bundle?) {
         mViewBinding.main = this@MainActivity
 
-        listPopup = ListPopup(this@MainActivity, height = ScreenUtils.getScreenHeight(this@MainActivity) / 2)
-        listDialog = ListDialog(this@MainActivity)
-        listDialog.setDialogHeight(ScreenUtils.getScreenHeight(this@MainActivity) / 2)
+        DaggerMainActivityComponent.builder()
+                .mainActivityModule(MainActivityModule(this@MainActivity,
+                        popupHeight = ScreenUtils.getScreenHeight(this@MainActivity) / 2))
+                .build().inject(this@MainActivity)
 
+        listDialog.setDialogHeight(ScreenUtils.getScreenHeight(this@MainActivity) / 2)
+    }
+
+    override fun presenterActions() {
         mPresenter.setListToPopupAndDialog()
     }
 
@@ -134,7 +143,8 @@ class MainActivity : BaseMvpActivity<MainContract.IMainView, MainPresenter, Acti
                         }
 
                         override fun onDenied(deniedPermissions: MutableList<String>) {
-                            ToastUtils.showToast(this@MainActivity, "permissions were denied, and can't continue")
+                            ToastUtils.showToast(this@MainActivity, "permissions were denied, and can't continue." +
+                                    "please grant permissions in setting.")
                         }
                     })
         } else {

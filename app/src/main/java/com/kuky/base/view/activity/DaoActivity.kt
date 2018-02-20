@@ -3,8 +3,8 @@ package com.kuky.base.view.activity
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
-import com.kuky.base.BaseApplication
 import com.kuky.base.R
+import com.kuky.base.component.DaggerDaoActivityComponent
 import com.kuky.base.databinding.ActivityDaoBinding
 import com.kuky.base.db_entity.Hobby
 import com.kuky.base.db_entity.Order
@@ -13,16 +13,19 @@ import com.kuky.base.entity.C
 import com.kuky.base.greendao.HobbyDao
 import com.kuky.base.greendao.OrderDao
 import com.kuky.base.greendao.UserDao
+import com.kuky.base.module.DaoActivityModule
 import com.kuky.baselib.baseClass.BaseActivity
 import com.kuky.baselib.baseUtils.LogUtils
 import com.kuky.baselib.baseUtils.SharePreferencesUtils
 import com.kuky.baselib.baseUtils.ToastUtils
+import javax.inject.Inject
 
 @SuppressLint("SetTextI18n")
 class DaoActivity : BaseActivity<ActivityDaoBinding>() {
-    private lateinit var mUserDao: UserDao
-    private lateinit var mOrderDao: OrderDao
-    private lateinit var mHobbyDao: HobbyDao
+
+    @Inject lateinit var mUserDao: UserDao
+    @Inject lateinit var mOrderDao: OrderDao
+    @Inject lateinit var mHobbyDao: HobbyDao
     private var isFirst = true
     private var oddUp = false
     private var odd = false
@@ -41,9 +44,10 @@ class DaoActivity : BaseActivity<ActivityDaoBinding>() {
 
     override fun initActivity(savedInstanceState: Bundle?) {
         mViewBinding.dao = this@DaoActivity
-        mUserDao = BaseApplication.getSession().userDao
-        mOrderDao = BaseApplication.getSession().orderDao
-        mHobbyDao = BaseApplication.getSession().hobbyDao
+
+        DaggerDaoActivityComponent.builder()
+                .daoActivityModule(DaoActivityModule())
+                .build().inject(this@DaoActivity)
     }
 
     override fun setListener() {
@@ -109,7 +113,8 @@ class DaoActivity : BaseActivity<ActivityDaoBinding>() {
                     .build().unique()// 查找单个数据
 
             if (user == null) {
-                sb.append("User not exits")
+                sb.append("User whose identification code is " +
+                        "${if (oddUp) C.IDENTIFICATION_CODE else C.IDENTIFICATION_CODE_ED} not exits")
             } else {
                 user.name = if (oddUp) "Kuky" else "Cucy"
                 mUserDao.update(user)
@@ -127,24 +132,30 @@ class DaoActivity : BaseActivity<ActivityDaoBinding>() {
 
             mViewBinding.operateResult.text = sb.toString().trim()
 
-            val id = mUserDao.queryBuilder()
+            val user1 = mUserDao.queryBuilder()
                     .where(UserDao.Properties.IdentificationCode.eq(C.IDENTIFICATION_CODE))
-                    .build().unique().id
+                    .build().unique()
 
-            val id2 = mUserDao.queryBuilder()
+            val user2 = mUserDao.queryBuilder()
                     .where(UserDao.Properties.IdentificationCode.eq(C.IDENTIFICATION_CODE_ED))
-                    .build().unique().id
+                    .build().unique()
 
-            val orderList = mOrderDao.queryBuilder()
-                    .where(OrderDao.Properties.UserId.eq(id))
-                    .build().list()
+            val id1 = if (user1 != null) user1.id else -1L
 
-            if (orderList.isNotEmpty()) {
+            val id2 = if (user2 != null) user2.id else -1L
+
+            if (id1 != -1L && id2 != -1L) {
+                val orderList = mOrderDao.queryBuilder()
+                        .where(OrderDao.Properties.UserId.eq(id1))
+                        .build().list()
+
+                if (orderList.isNotEmpty())
+                    orderList.forEach {
+                        it.userId = id2
+                        mOrderDao.update(it)
+                    }
             }
-            orderList.forEach {
-                it.userId = id2
-                mOrderDao.update(it)
-            }
+
         } else {
             ToastUtils.showToast(this@DaoActivity, "Insert data first please")
         }
@@ -157,7 +168,7 @@ class DaoActivity : BaseActivity<ActivityDaoBinding>() {
             if (userList.isNotEmpty())
                 userList.forEach { sb.append(it.toString()).append("\n") }
             else
-                sb.append("There is no user in database")
+                sb.append("There is no user exits")
 
             mViewBinding.operateResult.text = sb.toString().trim()
 
@@ -178,11 +189,12 @@ class DaoActivity : BaseActivity<ActivityDaoBinding>() {
                 LogUtils.e("User[id= $id, name= $name, age= $age, identificationCode= $identificationCode]")
             }
 
-            val hobbyList = mUserDao.queryBuilder()
+            val user = mUserDao.queryBuilder()
                     .where(UserDao.Properties.IdentificationCode.eq(C.IDENTIFICATION_CODE))
-                    .build().unique().hobbies
+                    .build().unique()
+            val hobbyList = if (user != null) user.hobbies else mutableListOf()
 
-            if (hobbyList.isNotEmpty())
+            if (user != null && hobbyList.isNotEmpty())
                 hobbyList.forEach { LogUtils.e("hobbyId= ${it.id}, hobbyName= ${it.name}") }
         } else {
             ToastUtils.showToast(this@DaoActivity, "Insert data first please")
@@ -204,7 +216,7 @@ class DaoActivity : BaseActivity<ActivityDaoBinding>() {
                 sb.append("Delete ${user.name} succeed")
                 mUserDao.delete(user)
             } else {
-                sb.append("There is no data exits")
+                sb.append("There is no user exits")
             }
 
             mViewBinding.operateResult.text = sb.toString().trim()

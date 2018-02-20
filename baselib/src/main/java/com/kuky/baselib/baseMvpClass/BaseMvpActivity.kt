@@ -21,12 +21,13 @@ abstract class BaseMvpActivity<V : BaseMvpViewImpl, P : BaseMvpPresenter<V>, VB 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (enabledEventBus()) EventBus.getDefault().register(this)
-        mPresenter = initPresenter()
-        mPresenter.attachView(this as V)
         ActivityManager.addActivity(this)
+        if (enabledEventBus()) EventBus.getDefault().register(this)
         mViewBinding = DataBindingUtil.setContentView(this, getLayoutId())
         initActivity(savedInstanceState)
+        mPresenter = initPresenter()
+        mPresenter.attachView(this as V)
+        presenterActions()
         setListener()
     }
 
@@ -49,6 +50,8 @@ abstract class BaseMvpActivity<V : BaseMvpViewImpl, P : BaseMvpPresenter<V>, VB 
     abstract fun getLayoutId(): Int
 
     abstract fun initActivity(savedInstanceState: Bundle?)
+
+    abstract fun presenterActions()
 
     abstract fun setListener()
 

@@ -17,11 +17,12 @@ abstract class BaseMvpFragment<V : BaseMvpViewImpl, P : BaseMvpPresenter<V>, VB 
     protected lateinit var mPresenter: P
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        mPresenter = initPresenter()
-        mPresenter.attachView(this as V)
         mViewBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
         if (enabledEventBus()) EventBus.getDefault().register(this)
         initFragment(savedInstanceState)
+        mPresenter = initPresenter()
+        mPresenter.attachView(this as V)
+        presenterActions()
         setListener()
         return mViewBinding.root
     }
@@ -44,6 +45,8 @@ abstract class BaseMvpFragment<V : BaseMvpViewImpl, P : BaseMvpPresenter<V>, VB 
     abstract fun getLayoutId(): Int
 
     abstract fun initFragment(savedInstanceState: Bundle?)
+
+    abstract fun presenterActions()
 
     abstract fun setListener()
 }

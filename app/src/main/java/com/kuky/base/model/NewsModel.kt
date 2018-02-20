@@ -1,6 +1,6 @@
 package com.kuky.base.model
 
-import com.kuky.base.contract.TopNewsContract
+import com.kuky.base.contract.NewsContract
 import com.kuky.base.entity.C
 import com.kuky.base.entity.News
 import com.kuky.base.http.RetrofitApi
@@ -13,12 +13,12 @@ import io.reactivex.schedulers.Schedulers
 /**
  * @author Kuky
  */
-class TopNewsModel : TopNewsContract.ITopNewsModel {
-    override fun getTopNews(callBack: ResultCallBack.OnListResultBack<MutableList<News.ResultBean.DataBean>>) {
+class NewsModel : NewsContract.INewsModel {
+    override fun getNews(type: String, callBack: ResultCallBack.OnListResultBack<MutableList<News.ResultBean.DataBean>>) {
         RetrofitManager
                 .provideClient(C.BASE, null)
                 .create(RetrofitApi::class.java)
-                .getNews(C.TOP, C.KEY)
+                .getNews(type, C.KEY)
                 .flatMap { t -> Observable.fromArray(t.result!!) }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
