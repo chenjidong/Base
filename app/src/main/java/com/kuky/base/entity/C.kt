@@ -30,4 +30,6 @@ object C {
     val ORDER_ED = "20BGF497503DG"
 
     val FIRST_INSTALL = "first_install"
+
+    val URL = "url"
 }

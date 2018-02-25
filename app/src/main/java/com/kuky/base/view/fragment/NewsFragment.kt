@@ -12,10 +12,10 @@ import com.kuky.base.entity.C
 import com.kuky.base.entity.News
 import com.kuky.base.module.NewsFragmentModule
 import com.kuky.base.presenter.NewsPresenter
+import com.kuky.base.view.activity.NewsDetailActivity
 import com.kuky.base.view.adapter.NewsAdapter
 import com.kuky.baselib.baseAdapter.BaseRvHeaderFooterAdapter
 import com.kuky.baselib.baseMvpClass.BaseMvpLazyLoadingFragment
-import com.kuky.baselib.baseUtils.ToastUtils
 import com.kuky.baselib.generalWidget.ListHandlerView
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener
@@ -53,7 +53,7 @@ class NewsFragment : BaseMvpLazyLoadingFragment<NewsContract.INewsView, NewsPres
         mViewBinding.newsListHandler.enabledLoadMore(false)
         mViewBinding.newsListHandler.setListPages(mNewsAdapter, object : BaseRvHeaderFooterAdapter.OnItemClickListener {
             override fun onItemClick(position: Int, view: View) {
-                ToastUtils.showToast(activity!!, mNewsAdapter.getAdapterData()!![position].title!!)
+                NewsDetailActivity.startDetail(activity!!, mNewsAdapter.getAdapterData()!![position].url!!)
             }
         }, LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false), null, null)
     }

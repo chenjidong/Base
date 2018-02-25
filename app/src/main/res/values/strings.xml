@@ -9,10 +9,13 @@
     <string name="download">下载测试</string>
     <string name="pick">时间选择</string>
     <string name="dao">数据库测试</string>
+    <string name="js">JS交互</string>
     <string name="insert">插入数据</string>
     <string name="update">修改数据</string>
     <string name="delete">删除数据</string>
     <string name="query">查找数据</string>
+    <string name="js_without_param">调用无参JS</string>
+    <string name="js_with_param">调用带参JS</string>
 
     <string name="news_image">新闻图片</string>
 </resources>

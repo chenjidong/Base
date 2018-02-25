@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.kuky.base.view.activity.JsContractActivity">
+
+    <data>
+
+        <variable
+            name="js"
+            type="com.kuky.base.view.activity.JsContractActivity"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:orientation="horizontal">
+
+            <Button
+                style="@style/Base.TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_weight="1"
+                android:onClick="@{js::ktCallJs}"
+                android:text="@string/js_without_param"
+                android:textAllCaps="false"
+                android:textSize="14sp"/>
+
+            <Button
+                style="@style/Base.TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp"
+                android:layout_weight="1"
+                android:onClick="@{js::ktCallJsWithParam}"
+                android:text="@string/js_with_param"
+                android:textAllCaps="false"
+                android:textSize="14sp"/>
+        </LinearLayout>
+
+        <WebView
+            android:id="@+id/content_web"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/top"/>
+
+        <ProgressBar
+            android:id="@+id/pro"
+            style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/top"
+            android:max="100"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
+</layout>

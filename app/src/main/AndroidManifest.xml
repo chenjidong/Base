@@ -32,6 +32,14 @@
             android:name=".view.activity.EventActivity"
             android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name=".view.activity.DaoActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".view.activity.NewsDetailActivity"
+            android:screenOrientation="portrait">
+        </activity>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -43,7 +51,7 @@
                 android:resource="@xml/file_paths"/>
         </provider>
 
-        <activity android:name=".view.activity.DaoActivity">
+        <activity android:name=".view.activity.JsContractActivity">
         </activity>
     </application>
 

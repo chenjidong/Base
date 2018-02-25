@@ -168,6 +168,10 @@ open class MainActivity : BaseMvpActivity<MainContract.IMainView, MainPresenter,
         startActivity(Intent(this@MainActivity, DaoActivity::class.java))
     }
 
+    fun jsContract(view: View) {
+        startActivity(Intent(this@MainActivity, JsContractActivity::class.java))
+    }
+
     private fun startDownload(url: String) {
         mDisposable = RxDownload
                 .create(url)

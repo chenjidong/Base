@@ -113,6 +113,17 @@
                 android:text="@string/dao"
                 android:textAllCaps="false"
                 android:textSize="14sp"/>
+
+            <Button
+                android:id="@+id/js"
+                style="@style/Base.TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/dao"
+                android:onClick="@{main::jsContract}"
+                android:text="@string/js"
+                android:textAllCaps="false"
+                android:textSize="14sp"/>
         </RelativeLayout>
     </ScrollView>
 </layout>
