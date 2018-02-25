@@ -16,6 +16,7 @@
     <string name="query">查找数据</string>
     <string name="js_without_param">调用无参JS</string>
     <string name="js_with_param">调用带参JS</string>
+    <string name="param_hint">输入参数值</string>
 
     <string name="news_image">新闻图片</string>
 </resources>

@@ -5,20 +5,32 @@
 
         function ktcalljs(){
              document.getElementById("content").innerHTML = "Kotlin 调用了 JS 的无参方法";
+             alert("调用无参方法")
         }
 
         function ktcalljswith(arg){
-             document.getElementById("content").innerHTML = "Kotlin 调用 JS 带参方法，参数为" + arg;
+             document.getElementById("content").innerHTML = "Kotlin 调用 JS 带参方法，参数为 " + arg;
+             alert("调用带参方法")
         }
 
     </script>
+
+    <p id="content">Android 调用结果显示</p>
 </head>
 
-<p id="content">Android 调用结果显示</p>
 <body>
-<input type="button" value="点击调用 kt 代码" onclick="window.android.startFunction()"/>
-<br/>
-<br/>
-<input type="button" value="点击调用 kt 代码并传递参数" onclick="window.android.startFunction('https://github.com/kukyxs')"/>
+
+    <script type="text/javascript">
+
+        function param(arg){
+            window.android.startFunction(arg)
+        }
+    </script>
+
+    <input type="button" size="20px" value="调用 Kotlin 无参方法" onclick="window.android.startFunction()"/>
+    </br>
+    </br>
+    <input type="button" size="20px" value="调用 Kotlin 带参方法" onclick="param('https://github.com/kukyxs')"/>
+
 </body>
 </html>
