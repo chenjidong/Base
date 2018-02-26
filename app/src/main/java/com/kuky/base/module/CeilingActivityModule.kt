@@ -11,10 +11,7 @@ import javax.inject.Singleton
  * @author Kuky
  */
 @Module
-class CeilingModule(activity: CeilingActivity, closeRecycle: Boolean = false) {
-
-    val mCeilingActivity = activity
-    val mCloseRecycle = closeRecycle
+class CeilingActivityModule(private var mCeilingActivity: CeilingActivity, private var mCloseRecycle: Boolean = false) {
 
     @Provides
     fun provideCeilingAdapter(): CeilingAdapter {

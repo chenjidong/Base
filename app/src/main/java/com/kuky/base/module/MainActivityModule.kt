@@ -15,14 +15,9 @@ import javax.inject.Singleton
  * @author Kuky
  */
 @Module
-class MainActivityModule(mainActivity: MainActivity, animStyle: Int = R.style.animationForBottomAndBottom,
-                         popupWidth: Int = ViewGroup.LayoutParams.MATCH_PARENT,
-                         popupHeight: Int = ViewGroup.LayoutParams.WRAP_CONTENT) {
-
-    var mMainActivity = mainActivity
-    var mAnimStyle = animStyle
-    var mPopupWidth = popupWidth
-    var mPopupHeight = popupHeight
+class MainActivityModule(private var mMainActivity: MainActivity, private var mAnimStyle: Int = R.style.animationForBottomAndBottom,
+                         private var mPopupWidth: Int = ViewGroup.LayoutParams.MATCH_PARENT,
+                         private var mPopupHeight: Int = ViewGroup.LayoutParams.WRAP_CONTENT) {
 
     @Singleton
     @Provides

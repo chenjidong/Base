@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 外部存储区域缓存子目录文件 -->
     <external-path
         name="images"
         path="meta"/>
+
+    <!-- 读取内存卡权限 -->
+    <root-path
+        name="root_path"
+        path="."/>
 </paths>

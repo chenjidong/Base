@@ -82,7 +82,7 @@ abstract class BaseRvHeaderFooterAdapter<T : Any, VB : ViewDataBinding>(context:
         return footers as MutableList
     }
 
-    fun setAdapterData(data: MutableList<T>?) {
+    fun updateAdapterData(data: MutableList<T>?) {
         this.mData = data
         notifyDataSetChanged()
     }

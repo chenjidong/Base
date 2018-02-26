@@ -126,11 +126,22 @@
                 android:textSize="14sp"/>
 
             <Button
-                android:id="@+id/js"
+                android:id="@+id/select"
                 style="@style/Base.TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/dao"
+                android:onClick="@{main::picSelect}"
+                android:text="@string/select"
+                android:textAllCaps="false"
+                android:textSize="14sp"/>
+
+            <Button
+                android:id="@+id/js"
+                style="@style/Base.TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/select"
                 android:onClick="@{main::jsContract}"
                 android:text="@string/js"
                 android:textAllCaps="false"

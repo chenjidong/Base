@@ -84,6 +84,10 @@ dependencies {
      */
     compile 'zlc.season:rxdownload3:1.2.0'
     /**
+     * Matisse
+     */
+    compile 'com.zhihu.android:matisse:0.4.3'
+    /**
      * iOS picker && loop
      */
     compile project(':loop&&picker')

@@ -59,7 +59,7 @@ class NewsFragment : BaseMvpLazyLoadingFragment<NewsContract.INewsView, NewsPres
                 .build().inject(this@NewsFragment)
 
         mViewBinding.newsListHandler.enabledLoadMore(false)
-        mViewBinding.newsListHandler.setListPages(mNewsAdapter, object : BaseRvHeaderFooterAdapter.OnItemClickListener {
+        mViewBinding.newsListHandler.setListPages(mNewsAdapter, false, object : BaseRvHeaderFooterAdapter.OnItemClickListener {
             override fun onItemClick(position: Int, view: View) {
                 NewsDetailActivity.startDetail(activity!!, mNewsAdapter.getAdapterData()!![position].url!!)
             }

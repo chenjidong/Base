@@ -34,7 +34,7 @@ class ListDialog : BaseDialog<ListSelectBinding> {
     }
 
     fun setDialogList(items: MutableList<String>, listener: BaseRvHeaderFooterAdapter.OnItemClickListener?) {
-        adapter.setAdapterData(items)
+        adapter.updateAdapterData(items)
         if (listener != null) adapter.setOnItemClickListener(listener)
     }
 

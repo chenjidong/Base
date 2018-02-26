@@ -8,11 +8,11 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.kuky.base.R
-import com.kuky.base.component.DaggerCeilingComponent
+import com.kuky.base.component.DaggerCeilingActivityComponent
 import com.kuky.base.contract.CeilingContract
 import com.kuky.base.databinding.ActivityCeilingBinding
 import com.kuky.base.entity.CeilingData
-import com.kuky.base.module.CeilingModule
+import com.kuky.base.module.CeilingActivityModule
 import com.kuky.base.presenter.CeilingPresenter
 import com.kuky.baselib.OnGroupListener
 import com.kuky.baselib.baseAdapter.BaseRvHeaderFooterAdapter
@@ -48,11 +48,11 @@ class CeilingActivity : BaseMvpActivity<CeilingContract.ICeilingView, CeilingPre
     override fun initActivity(savedInstanceState: Bundle?) {
         mViewBinding.ceilingAct = this@CeilingActivity
 
-        DaggerCeilingComponent.builder()
-                .ceilingModule(CeilingModule(this@CeilingActivity, true))
+        DaggerCeilingActivityComponent.builder()
+                .ceilingActivityModule(CeilingActivityModule(this@CeilingActivity, true))
                 .build().inject(this@CeilingActivity)
 
-        mViewBinding.ceilList.setListPages(ceilAdapter, object : BaseRvHeaderFooterAdapter.OnItemClickListener {
+        mViewBinding.ceilList.setListPages(ceilAdapter, true, object : BaseRvHeaderFooterAdapter.OnItemClickListener {
             override fun onItemClick(position: Int, view: View) {
                 ToastUtils.showToast(this@CeilingActivity, ceilAdapter.getAdapterData()!![position].selfName)
             }

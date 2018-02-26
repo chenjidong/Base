@@ -93,6 +93,16 @@ class ListHandlerView<T : Any> : RelativeLayout {
         (mHandlerBinding.loadingPage.drawable as AnimationDrawable).start()
     }
 
+    fun replaceLoadingProgress(drawableRes: Int) {
+        mHandlerBinding.loadingPage.setImageResource(drawableRes)
+        (mHandlerBinding.loadingPage.drawable as AnimationDrawable).start()
+    }
+
+    fun repalceLoadingProgress(drawable: AnimationDrawable) {
+        mHandlerBinding.loadingPage.setImageDrawable(drawable)
+        drawable.start()
+    }
+
     fun setEmptyDrawable(@DrawableRes drawableRes: Int) {
         mHandlerBinding.nothingPage.setImageResource(drawableRes)
     }
@@ -101,7 +111,7 @@ class ListHandlerView<T : Any> : RelativeLayout {
         mHandlerBinding.reloadPage.setImageResource(drawableRes)
     }
 
-    fun setListPages(adapter: BaseRvHeaderFooterAdapter<T, ViewDataBinding>,
+    fun setListPages(adapter: BaseRvHeaderFooterAdapter<T, ViewDataBinding>, showBackTop: Boolean,
                      listener: BaseRvHeaderFooterAdapter.OnItemClickListener?,
                      rvManager: RecyclerView.LayoutManager,
                      anim: RecyclerView.ItemAnimator?,
@@ -114,46 +124,52 @@ class ListHandlerView<T : Any> : RelativeLayout {
 
         mHandlerBinding.listContainer.layoutManager = rvManager
 
-        getListContainer().addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-                when (rvManager) {
-                    is LinearLayoutManager -> {
-                        val firstVisibleItemPosition = rvManager.findFirstVisibleItemPosition()
-                        when (newState) {
-                            RecyclerView.SCROLL_STATE_IDLE -> {
-                                mHandlerBinding.backTop.visibility = if (firstVisibleItemPosition <= 3) View.GONE else View.VISIBLE
-                            }
+        /**
+         * RecyclerView 返回顶部按钮
+         */
+        if (showBackTop) {
+            getListContainer().addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+                    when (rvManager) {
+                        is LinearLayoutManager -> {
+                            val firstVisibleItemPosition = rvManager.findFirstVisibleItemPosition()
+                            when (newState) {
+                                RecyclerView.SCROLL_STATE_IDLE -> {
+                                    mHandlerBinding.backTop.visibility = if (firstVisibleItemPosition <= 3) View.GONE else View.VISIBLE
+                                }
 
-                            RecyclerView.SCROLL_STATE_DRAGGING -> mHandlerBinding.backTop.visibility = View.GONE
+                                RecyclerView.SCROLL_STATE_DRAGGING -> mHandlerBinding.backTop.visibility = View.GONE
+                            }
                         }
-                    }
 
-                    is GridLayoutManager -> {
-                        val firstVisibleItemPosition = rvManager.findFirstVisibleItemPosition()
-                        when (newState) {
-                            RecyclerView.SCROLL_STATE_IDLE -> {
-                                mHandlerBinding.backTop.visibility = if (firstVisibleItemPosition <= 6) View.GONE else View.VISIBLE
+                        is GridLayoutManager -> {
+                            val firstVisibleItemPosition = rvManager.findFirstVisibleItemPosition()
+                            when (newState) {
+                                RecyclerView.SCROLL_STATE_IDLE -> {
+                                    mHandlerBinding.backTop.visibility = if (firstVisibleItemPosition <= 6) View.GONE else View.VISIBLE
+                                }
+
+                                RecyclerView.SCROLL_STATE_DRAGGING -> mHandlerBinding.backTop.visibility = View.GONE
                             }
-
-                            RecyclerView.SCROLL_STATE_DRAGGING -> mHandlerBinding.backTop.visibility = View.GONE
                         }
-                    }
 
-                    is StaggeredGridLayoutManager -> {
-                        val firstVisibleItemPositions = IntArray(0)
-                        rvManager.findFirstVisibleItemPositions(firstVisibleItemPositions)
-                        when (newState) {
-                            RecyclerView.SCROLL_STATE_IDLE -> {
-                                mHandlerBinding.backTop.visibility = if (firstVisibleItemPositions[0] <= 6) View.GONE else View.VISIBLE
+                        is StaggeredGridLayoutManager -> {
+                            val firstVisibleItemPositions = IntArray(0)
+                            rvManager.findFirstVisibleItemPositions(firstVisibleItemPositions)
+                            when (newState) {
+                                RecyclerView.SCROLL_STATE_IDLE -> {
+                                    mHandlerBinding.backTop.visibility = if (firstVisibleItemPositions[0] <= 6) View.GONE else View.VISIBLE
+                                }
+
+                                RecyclerView.SCROLL_STATE_DRAGGING -> mHandlerBinding.backTop.visibility = View.GONE
                             }
-
-                            RecyclerView.SCROLL_STATE_DRAGGING -> mHandlerBinding.backTop.visibility = View.GONE
                         }
                     }
                 }
-            }
-        })
+            })
+        } else
+            mHandlerBinding.backTop.visibility = View.GONE
 
         if (listener != null) {
             mListAdapter!!.setOnItemClickListener(listener)
@@ -205,7 +221,7 @@ class ListHandlerView<T : Any> : RelativeLayout {
     }
 
     fun updateData(data: MutableList<T>?) {
-        this.mListAdapter!!.setAdapterData(data)
+        this.mListAdapter!!.updateAdapterData(data)
     }
 
     fun getListData(): MutableList<T>? {

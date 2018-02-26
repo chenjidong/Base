@@ -34,7 +34,7 @@ class ListPopup(context: Context, animStyle: Int = R.style.animationForBottomAnd
     }
 
     fun setPopupList(items: MutableList<String>, listener: BaseRvHeaderFooterAdapter.OnItemClickListener?) {
-        adapter.setAdapterData(items)
+        adapter.updateAdapterData(items)
         if (listener != null) adapter.setOnItemClickListener(listener)
     }
 

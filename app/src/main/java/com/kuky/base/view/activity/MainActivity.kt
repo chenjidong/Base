@@ -70,7 +70,7 @@ open class MainActivity : BaseMvpActivity<MainContract.IMainView, MainPresenter,
 
         DaggerMainActivityComponent.builder()
                 .mainActivityModule(MainActivityModule(this@MainActivity,
-                        popupHeight = ScreenUtils.getScreenHeight(this@MainActivity) / 2))
+                        mPopupHeight = ScreenUtils.getScreenHeight(this@MainActivity) / 2))
                 .build().inject(this@MainActivity)
 
         listDialog.setDialogHeight(ScreenUtils.getScreenHeight(this@MainActivity) / 2)
@@ -170,6 +170,10 @@ open class MainActivity : BaseMvpActivity<MainContract.IMainView, MainPresenter,
 
     fun database(view: View) {
         startActivity(Intent(this@MainActivity, DaoActivity::class.java))
+    }
+
+    fun picSelect(view: View) {
+        startActivity(Intent(this@MainActivity, SelectActivity::class.java))
     }
 
     fun jsContract(view: View) {

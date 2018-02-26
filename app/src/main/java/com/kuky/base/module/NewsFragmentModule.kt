@@ -11,10 +11,7 @@ import javax.inject.Singleton
  * @author Kuky
  */
 @Module
-class NewsFragmentModule(newsFragment: NewsFragment, closeRecycle: Boolean = false) {
-
-    val mNewsFragment = newsFragment
-    val mCloseRecycle = closeRecycle
+class NewsFragmentModule(private var mNewsFragment: NewsFragment, private var mCloseRecycle: Boolean = false) {
 
     @Singleton
     @Provides
