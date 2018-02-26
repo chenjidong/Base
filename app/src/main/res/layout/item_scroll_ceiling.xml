@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="ceil"
+            type="com.kuky.base.entity.CeilingData"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:padding="12dp"
+            android:singleLine="true"
+            android:text="@{ceil.selfName}"
+            android:textAllCaps="false"
+            android:textColor="#666666"
+            android:textSize="14sp"
+            tools:text="@string/ceiling"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#6F6F6F"/>
+
+    </LinearLayout>
+</layout>

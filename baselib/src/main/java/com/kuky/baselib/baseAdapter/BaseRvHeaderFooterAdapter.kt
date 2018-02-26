@@ -55,6 +55,10 @@ abstract class BaseRvHeaderFooterAdapter<T : Any, VB : ViewDataBinding>(context:
         notifyDataSetChanged()
     }
 
+    fun getSelectedItemPosition(): Int {
+        return mSelectedPosition
+    }
+
     fun addHeaderBinding(headerBinding: ViewDataBinding) {
         mHeaderBindings.put(HEADER + getHeaderCount(), headerBinding)
         notifyItemInserted(getHeaderCount())
@@ -66,6 +70,16 @@ abstract class BaseRvHeaderFooterAdapter<T : Any, VB : ViewDataBinding>(context:
         else mData!!.size - 1
         if (haveHeader()) insertPos += getHeaderCount()
         notifyItemInserted(insertPos)
+    }
+
+    fun getHeaderBindings(): MutableList<ViewDataBinding> {
+        val headers = (HEADER until getHeaderCount() + HEADER).map { mHeaderBindings.get(it) }
+        return headers as MutableList
+    }
+
+    fun getFooterBindings(): MutableList<ViewDataBinding> {
+        val footers = (FOOTER until getFooterCount() + FOOTER).map { mFooterBindings.get(it) }
+        return footers as MutableList
     }
 
     fun setAdapterData(data: MutableList<T>?) {
@@ -85,7 +99,7 @@ abstract class BaseRvHeaderFooterAdapter<T : Any, VB : ViewDataBinding>(context:
         }
     }
 
-    fun addData(data: MutableList<T>) {
+    fun addAllData(data: MutableList<T>) {
         if (mData != null) {
             this.mData!!.addAll(data)
             notifyDataSetChanged()
@@ -113,7 +127,7 @@ abstract class BaseRvHeaderFooterAdapter<T : Any, VB : ViewDataBinding>(context:
         }
     }
 
-    public fun getCurrentPosition(): Int {
+    fun getCurrentPosition(): Int {
         return mCurrentPosition
     }
 
@@ -173,7 +187,10 @@ abstract class BaseRvHeaderFooterAdapter<T : Any, VB : ViewDataBinding>(context:
             this.mCurrentPosition = pos
             setVariable(mViewBinding, mData!![pos])
             mViewBinding.executePendingBindings()
-            holder.setIsRecyclable(!mCloseRecycler)
+
+            if (mCloseRecycler) {
+                holder.setIsRecyclable(false)
+            }
 
             if (mOnItemClickListener != null) {
                 holder.itemView.setOnClickListener { view -> mOnItemClickListener!!.onItemClick(pos, view) }

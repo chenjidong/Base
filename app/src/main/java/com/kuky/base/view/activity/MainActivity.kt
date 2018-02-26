@@ -117,8 +117,12 @@ open class MainActivity : BaseMvpActivity<MainContract.IMainView, MainPresenter,
         }
     }
 
-    fun toNewsList(view: View) {
+    fun newsList(view: View) {
         startActivity(Intent(this@MainActivity, NewsActivity::class.java))
+    }
+
+    fun ceilingList(view: View) {
+        startActivity(Intent(this@MainActivity, CeilingActivity::class.java))
     }
 
     fun showPopup(view: View) {

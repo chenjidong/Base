@@ -43,8 +43,19 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/down_state"
                 android:layout_marginTop="12dp"
-                android:onClick="@{main::toNewsList}"
+                android:onClick="@{main::newsList}"
                 android:text="@string/list"
+                android:textAllCaps="false"
+                android:textSize="14sp"/>
+
+            <Button
+                android:id="@+id/ceiling"
+                style="@style/Base.TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/list"
+                android:onClick="@{main::ceilingList}"
+                android:text="@string/ceiling"
                 android:textAllCaps="false"
                 android:textSize="14sp"/>
 
@@ -53,7 +64,7 @@
                 style="@style/Base.TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/list"
+                android:layout_below="@id/ceiling"
                 android:onClick="@{main::showPopup}"
                 android:text="@string/popup"
                 android:textAllCaps="false"

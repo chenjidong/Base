@@ -2,6 +2,7 @@
     <string name="app_name">Base</string>
 
     <string name="list">列表测试</string>
+    <string name="ceiling">头部悬浮列表</string>
     <string name="popup">弹窗测试</string>
     <string name="dialog">对话框测试</string>
     <string name="event">事件测试</string>

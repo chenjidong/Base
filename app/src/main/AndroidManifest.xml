@@ -29,6 +29,10 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
+            android:name=".view.activity.CeilingActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
             android:name=".view.activity.EventActivity"
             android:screenOrientation="portrait">
         </activity>
@@ -38,6 +42,10 @@
         </activity>
         <activity
             android:name=".view.activity.NewsDetailActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".view.activity.JsContractActivity"
             android:screenOrientation="portrait">
         </activity>
 
@@ -50,9 +58,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths"/>
         </provider>
-
-        <activity android:name=".view.activity.JsContractActivity">
-        </activity>
     </application>
 
 </manifest>

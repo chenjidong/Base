@@ -23,4 +23,16 @@ public class DataBindingAuxiliaries {
                         .fallback(error))
                 .into(image);
     }
+
+    @BindingAdapter({"image_url", "place_image", "error_image"})
+    public static void imageLoader(ImageView image, int drawableRes, Drawable place, Drawable error) {
+        Glide.with(image.getContext())
+                .load(drawableRes)
+                .thumbnail(0.7f)
+                .apply(new RequestOptions()
+                        .centerCrop()
+                        .placeholder(place)
+                        .fallback(error))
+                .into(image);
+    }
 }

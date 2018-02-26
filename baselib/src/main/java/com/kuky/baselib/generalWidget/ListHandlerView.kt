@@ -6,8 +6,7 @@ import android.databinding.ViewDataBinding
 import android.graphics.Color
 import android.graphics.drawable.AnimationDrawable
 import android.support.annotation.DrawableRes
-import android.support.v7.widget.DefaultItemAnimator
-import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.*
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -109,10 +108,52 @@ class ListHandlerView<T : Any> : RelativeLayout {
                      decoration: RecyclerView.ItemDecoration?) {
 
         this.mListAdapter = adapter
+        this.mData = adapter.getAdapterData()
 
         mHandlerBinding.listContainer.adapter = mListAdapter
 
         mHandlerBinding.listContainer.layoutManager = rvManager
+
+        getListContainer().addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                when (rvManager) {
+                    is LinearLayoutManager -> {
+                        val firstVisibleItemPosition = rvManager.findFirstVisibleItemPosition()
+                        when (newState) {
+                            RecyclerView.SCROLL_STATE_IDLE -> {
+                                mHandlerBinding.backTop.visibility = if (firstVisibleItemPosition <= 3) View.GONE else View.VISIBLE
+                            }
+
+                            RecyclerView.SCROLL_STATE_DRAGGING -> mHandlerBinding.backTop.visibility = View.GONE
+                        }
+                    }
+
+                    is GridLayoutManager -> {
+                        val firstVisibleItemPosition = rvManager.findFirstVisibleItemPosition()
+                        when (newState) {
+                            RecyclerView.SCROLL_STATE_IDLE -> {
+                                mHandlerBinding.backTop.visibility = if (firstVisibleItemPosition <= 6) View.GONE else View.VISIBLE
+                            }
+
+                            RecyclerView.SCROLL_STATE_DRAGGING -> mHandlerBinding.backTop.visibility = View.GONE
+                        }
+                    }
+
+                    is StaggeredGridLayoutManager -> {
+                        val firstVisibleItemPositions = IntArray(0)
+                        rvManager.findFirstVisibleItemPositions(firstVisibleItemPositions)
+                        when (newState) {
+                            RecyclerView.SCROLL_STATE_IDLE -> {
+                                mHandlerBinding.backTop.visibility = if (firstVisibleItemPositions[0] <= 6) View.GONE else View.VISIBLE
+                            }
+
+                            RecyclerView.SCROLL_STATE_DRAGGING -> mHandlerBinding.backTop.visibility = View.GONE
+                        }
+                    }
+                }
+            }
+        })
 
         if (listener != null) {
             mListAdapter!!.setOnItemClickListener(listener)
@@ -125,6 +166,18 @@ class ListHandlerView<T : Any> : RelativeLayout {
         }
     }
 
+    fun setListAnim(anim: RecyclerView.ItemAnimator) {
+        mHandlerBinding.listContainer.itemAnimator = anim
+    }
+
+    fun setListDecoration(decoration: RecyclerView.ItemDecoration) {
+        mHandlerBinding.listContainer.addItemDecoration(decoration)
+    }
+
+    fun setBackTopButtonResource(resId: Int) {
+        mHandlerBinding.backTop.setBackgroundResource(resId)
+    }
+
     fun addHeader(headerBinding: ViewDataBinding) {
         mListAdapter!!.addHeaderBinding(headerBinding)
     }
@@ -133,22 +186,38 @@ class ListHandlerView<T : Any> : RelativeLayout {
         mListAdapter!!.addFooterBinding(footerBinding)
     }
 
+    fun getHeaders(): MutableList<ViewDataBinding> {
+        return mListAdapter!!.getHeaderBindings()
+    }
+
+    fun getFooters(): MutableList<ViewDataBinding> {
+        return mListAdapter!!.getFooterBindings()
+    }
+
     fun reloadClick(view: View) {
         if (mOnListReloadListener != null && mState == LOAD_FAILED_STATE) {
             mOnListReloadListener!!.onListReload()
         }
     }
 
+    fun backTop(view: View) {
+        getListContainer().smoothScrollToPosition(0)
+    }
+
     fun updateData(data: MutableList<T>?) {
         this.mListAdapter!!.setAdapterData(data)
+    }
+
+    fun getListData(): MutableList<T>? {
+        return mListAdapter!!.getAdapterData()
     }
 
     fun addData(data: T) {
         this.mListAdapter!!.addData(data)
     }
 
-    fun addData(data: MutableList<T>) {
-        this.mListAdapter!!.addData(data)
+    fun addAllData(data: MutableList<T>) {
+        this.mListAdapter!!.addAllData(data)
     }
 
     fun removeData(data: T) {
