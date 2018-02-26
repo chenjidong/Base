@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog
 import android.text.InputFilter
 import android.text.TextUtils
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.webkit.*
 import com.kuky.base.R
 import com.kuky.base.databinding.ActivityJsContractBinding
@@ -76,7 +77,13 @@ class JsContractActivity : BaseActivity<ActivityJsContractBinding>() {
     }
 
     override fun setListener() {
-
+        mViewBinding.topEt.setOnEditorActionListener { textView, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                ktCallJsWithParam(textView)
+                true
+            } else
+                false
+        }
     }
 
     fun ktCallJs(view: View) {
@@ -90,6 +97,7 @@ class JsContractActivity : BaseActivity<ActivityJsContractBinding>() {
         if (!TextUtils.isEmpty(mViewBinding.topEt.text.toString())) {
             val arg = "\'${mViewBinding.topEt.text}\'"
             mViewBinding.topEt.setText("")
+            mViewBinding.topEt.clearFocus()
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
                 mViewBinding.contentWeb.loadUrl("javascript:ktcalljswith($arg)")
             } else {
@@ -116,7 +124,7 @@ class JsContractActivity : BaseActivity<ActivityJsContractBinding>() {
         @JavascriptInterface
         fun startFunction() {
             runOnUiThread {
-                ToastUtils.showToast(mContext, "start function without param")
+                ToastUtils.showToast(mContext, "Js call the function without param in Kotlin")
             }
         }
 

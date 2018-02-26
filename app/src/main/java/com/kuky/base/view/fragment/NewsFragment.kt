@@ -1,13 +1,17 @@
 package com.kuky.base.view.fragment
 
+import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
+import android.view.LayoutInflater
 import android.view.View
 import com.kuky.base.R
 import com.kuky.base.component.DaggerNewsFragmentComponent
 import com.kuky.base.contract.NewsContract
+import com.kuky.base.databinding.BottomFooterBinding
 import com.kuky.base.databinding.FragmentNewsBinding
+import com.kuky.base.databinding.TopHeaderBinding
 import com.kuky.base.entity.C
 import com.kuky.base.entity.News
 import com.kuky.base.module.NewsFragmentModule
@@ -33,6 +37,10 @@ class NewsFragment : BaseMvpLazyLoadingFragment<NewsContract.INewsView, NewsPres
 
     private var mType = C.TOP
 
+    private lateinit var header: TopHeaderBinding
+
+    private lateinit var footer: BottomFooterBinding
+
     override fun enabledEventBus(): Boolean {
         return false
     }
@@ -56,6 +64,11 @@ class NewsFragment : BaseMvpLazyLoadingFragment<NewsContract.INewsView, NewsPres
                 NewsDetailActivity.startDetail(activity!!, mNewsAdapter.getAdapterData()!![position].url!!)
             }
         }, LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false), null, null)
+
+        header = DataBindingUtil.inflate(LayoutInflater.from(activity), R.layout.top_header, mViewBinding.newsListHandler.getListContainer(), false)
+        footer = DataBindingUtil.inflate(LayoutInflater.from(activity), R.layout.bottom_footer, mViewBinding.newsListHandler.getListContainer(), false)
+        mViewBinding.newsListHandler.addHeader(header)
+        mViewBinding.newsListHandler.addFooter(footer)
     }
 
     override fun presenterActions() {

@@ -18,5 +18,8 @@
     <string name="js_with_param">调用带参JS</string>
     <string name="param_hint">输入参数值</string>
 
+    <string name="head">HeaderView</string>
+    <string name="foot">FooterView</string>
+
     <string name="news_image">新闻图片</string>
 </resources>

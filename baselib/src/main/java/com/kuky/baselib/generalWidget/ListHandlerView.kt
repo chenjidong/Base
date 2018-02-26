@@ -125,6 +125,14 @@ class ListHandlerView<T : Any> : RelativeLayout {
         }
     }
 
+    fun addHeader(headerBinding: ViewDataBinding) {
+        mListAdapter!!.addHeaderBinding(headerBinding)
+    }
+
+    fun addFooter(footerBinding: ViewDataBinding) {
+        mListAdapter!!.addFooterBinding(footerBinding)
+    }
+
     fun reloadClick(view: View) {
         if (mOnListReloadListener != null && mState == LOAD_FAILED_STATE) {
             mOnListReloadListener!!.onListReload()
