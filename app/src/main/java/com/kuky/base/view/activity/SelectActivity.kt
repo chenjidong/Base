@@ -4,7 +4,6 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.ActivityInfo
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import com.kuky.base.AuxGlideEngine
@@ -23,9 +22,6 @@ class SelectActivity : BaseActivity<ActivitySelectBinding>() {
 
     private val CHOOSE_CODE = 0x1001
 
-    private lateinit var picAdapter: PicVpAdapter
-    private val pics: MutableList<Uri> = mutableListOf()
-
     override fun enabledEventBus(): Boolean {
         return false
     }
@@ -36,12 +32,6 @@ class SelectActivity : BaseActivity<ActivitySelectBinding>() {
 
     override fun initActivity(savedInstanceState: Bundle?) {
         mViewBinding.select = this@SelectActivity
-
-        picAdapter = PicVpAdapter(this@SelectActivity, pics)
-        mViewBinding.picVp.pageMargin = 10
-        mViewBinding.picVp.offscreenPageLimit = 3
-        mViewBinding.picVp.adapter = picAdapter
-        mViewBinding.picVp.setPageTransformer(false, ScaleTransformer(this@SelectActivity))
     }
 
     override fun setListener() {
@@ -96,7 +86,12 @@ class SelectActivity : BaseActivity<ActivitySelectBinding>() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CHOOSE_CODE && resultCode == Activity.RESULT_OK) {
-            picAdapter.updateData(Matisse.obtainResult(data))
+            mViewBinding.picVp.adapter = PicVpAdapter(this@SelectActivity, Matisse.obtainResult(data))
+            mViewBinding.picVp.pageMargin = 10
+            mViewBinding.picVp.currentItem = 0
+            mViewBinding.picVp.offscreenPageLimit = 3
+            mViewBinding.picVp.setPageTransformer(true, ScaleTransformer(this@SelectActivity))
+            mViewBinding.indicator.setUpWithViewPager(mViewBinding.picVp)
         }
     }
 }

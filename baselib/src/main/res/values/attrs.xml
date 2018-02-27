@@ -26,4 +26,13 @@
         <attr name="leftSwipe" format="boolean"/>
     </declare-styleable>
 
+    <declare-styleable name="IndicatorView">
+        <attr name="indicatorRadius" format="dimension"/>
+        <attr name="indicatorStrokeWidth" format="dimension"/>
+        <attr name="indicatorSpace" format="dimension"/>
+        <attr name="indicatorNormalColor" format="color"/>
+        <attr name="indicatorSelectedColor" format="color"/>
+        <attr name="indicatorSelectPos" format="integer"/>
+    </declare-styleable>
+
 </resources>

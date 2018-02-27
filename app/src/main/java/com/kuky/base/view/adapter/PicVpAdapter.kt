@@ -45,4 +45,16 @@ class PicVpAdapter(private var mContext: Context, private var mList: MutableList
         this.mList = list
         notifyDataSetChanged()
     }
+
+    fun clearData() {
+        this.mList.clear()
+        notifyDataSetChanged()
+    }
+
+    /**
+     * 更新数据不刷新问题 全部替换需要先 clear 再 update
+     */
+    override fun getItemPosition(`object`: Any): Int {
+        return if (mList.isNotEmpty()) super.getItemPosition(`object`) else POSITION_NONE
+    }
 }

@@ -9,7 +9,7 @@ import android.view.View
 /**
  * @author Kuky
  */
-class ScaleTransformer(private val context: Context) : ViewPager.PageTransformer {
+class ScaleTransformer(context: Context) : ViewPager.PageTransformer {
     private val MIN_ALPHA = 0.5F
     private val MIN_SCALE = 0.75F
     private var elevation: Float = 0F
