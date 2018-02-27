@@ -16,6 +16,8 @@
     <string name="update">修改数据</string>
     <string name="delete">删除数据</string>
     <string name="query">查找数据</string>
+    <string name="zh_sty">普通风格</string>
+    <string name="dracula_sty">黑夜风格</string>
     <string name="js_without_param">调用无参JS</string>
     <string name="js_with_param">调用带参JS</string>
     <string name="param_hint">输入参数值</string>

@@ -4,29 +4,27 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.net.Uri
 import android.os.Bundle
-import android.support.v7.widget.DefaultItemAnimator
-import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.kuky.base.AuxGlideEngine
 import com.kuky.base.R
-import com.kuky.base.component.DaggerSelectActivityComponent
+import com.kuky.base.ScaleTransformer
 import com.kuky.base.databinding.ActivitySelectBinding
-import com.kuky.base.module.SelectActivityModule
-import com.kuky.base.view.adapter.SelectPicAdapter
+import com.kuky.base.view.adapter.PicVpAdapter
 import com.kuky.baselib.OnPermissionListener
 import com.kuky.baselib.baseClass.BaseActivity
-import com.kuky.baselib.baseUtils.LogUtils
 import com.kuky.baselib.baseUtils.ToastUtils
 import com.zhihu.matisse.Matisse
 import com.zhihu.matisse.MimeType
 import com.zhihu.matisse.internal.entity.CaptureStrategy
-import javax.inject.Inject
 
 class SelectActivity : BaseActivity<ActivitySelectBinding>() {
+
     private val CHOOSE_CODE = 0x1001
 
-    @Inject lateinit var selectAdapter: SelectPicAdapter
+    private lateinit var picAdapter: PicVpAdapter
+    private val pics: MutableList<Uri> = mutableListOf()
 
     override fun enabledEventBus(): Boolean {
         return false
@@ -39,13 +37,11 @@ class SelectActivity : BaseActivity<ActivitySelectBinding>() {
     override fun initActivity(savedInstanceState: Bundle?) {
         mViewBinding.select = this@SelectActivity
 
-        DaggerSelectActivityComponent.builder()
-                .selectActivityModule(SelectActivityModule(this@SelectActivity))
-                .build().inject(this@SelectActivity)
-
-        mViewBinding.picShow.layoutManager = LinearLayoutManager(this@SelectActivity, LinearLayoutManager.HORIZONTAL, false)
-        mViewBinding.picShow.itemAnimator = DefaultItemAnimator()
-        mViewBinding.picShow.adapter = selectAdapter
+        picAdapter = PicVpAdapter(this@SelectActivity, pics)
+        mViewBinding.picVp.pageMargin = 10
+        mViewBinding.picVp.offscreenPageLimit = 3
+        mViewBinding.picVp.adapter = picAdapter
+        mViewBinding.picVp.setPageTransformer(false, ScaleTransformer(this@SelectActivity))
     }
 
     override fun setListener() {
@@ -100,9 +96,7 @@ class SelectActivity : BaseActivity<ActivitySelectBinding>() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CHOOSE_CODE && resultCode == Activity.RESULT_OK) {
-            selectAdapter.updateAdapterData(Matisse.obtainResult(data))
-            LogUtils.e("urls are ${Matisse.obtainResult(data)}")
-            LogUtils.e("rv adapter data are ${selectAdapter.getAdapterData()}")
+            picAdapter.updateData(Matisse.obtainResult(data))
         }
     }
 }

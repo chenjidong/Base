@@ -14,43 +14,44 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
+        android:clipChildren="false"
         android:orientation="vertical">
 
-        <ImageButton
-            android:id="@+id/normal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="#00FFFF"
-            android:contentDescription="@string/select"
-            android:onClick="@{select::normalSelect}"
-            android:padding="8dp"
-            android:src="@drawable/ic_add"/>
-
-        <ImageButton
-            android:id="@+id/dracula"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@id/normal"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_toEndOf="@id/normal"
-            android:layout_toRightOf="@id/normal"
-            android:background="#666666"
-            android:contentDescription="@string/select"
-            android:onClick="@{select::draculaSelect}"
-            android:padding="8dp"
-            android:src="@drawable/ic_add"/>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/pic_show"
+        <Button
+            android:id="@+id/zh_sty"
+            style="@style/Base.TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/normal"
-            android:layout_marginTop="12dp"
-            android:scrollbars="none"/>
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:onClick="@{select::normalSelect}"
+            android:text="@string/zh_sty"
+            android:textAllCaps="false"
+            android:textSize="16sp"/>
+
+        <Button
+            android:id="@+id/dracula_style"
+            style="@style/Base.TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/zh_sty"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:onClick="@{select::draculaSelect}"
+            android:text="@string/dracula_sty"
+            android:textAllCaps="false"
+            android:textSize="16sp"/>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pic_vp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/dracula_style"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:layout_marginTop="8dp"
+            android:clipChildren="false"/>
     </RelativeLayout>
 
 </layout>
