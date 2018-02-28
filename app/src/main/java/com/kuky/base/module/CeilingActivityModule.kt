@@ -2,7 +2,7 @@ package com.kuky.base.module
 
 import com.kuky.base.presenter.CeilingPresenter
 import com.kuky.base.view.activity.CeilingActivity
-import com.kuky.base.view.activity.CeilingAdapter
+import com.kuky.base.view.adapter.CeilingAdapter
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

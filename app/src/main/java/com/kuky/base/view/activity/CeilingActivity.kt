@@ -14,6 +14,7 @@ import com.kuky.base.databinding.ActivityCeilingBinding
 import com.kuky.base.entity.CeilingData
 import com.kuky.base.module.CeilingActivityModule
 import com.kuky.base.presenter.CeilingPresenter
+import com.kuky.base.view.adapter.CeilingAdapter
 import com.kuky.baselib.OnGroupListener
 import com.kuky.baselib.baseAdapter.BaseRvHeaderFooterAdapter
 import com.kuky.baselib.baseMvpClass.BaseMvpActivity

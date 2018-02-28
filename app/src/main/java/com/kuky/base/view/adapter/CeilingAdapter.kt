@@ -1,4 +1,4 @@
-package com.kuky.base.view.activity
+package com.kuky.base.view.adapter
 
 import android.content.Context
 import android.databinding.ViewDataBinding
