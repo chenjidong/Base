@@ -33,6 +33,7 @@
         <attr name="indicatorNormalColor" format="color"/>
         <attr name="indicatorSelectedColor" format="color"/>
         <attr name="indicatorSelectPos" format="integer"/>
+        <attr name="bindLooperAdapter" format="boolean"/>
     </declare-styleable>
 
 </resources>

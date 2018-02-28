@@ -10,7 +10,7 @@ import com.kuky.base.AuxGlideEngine
 import com.kuky.base.R
 import com.kuky.base.ScaleTransformer
 import com.kuky.base.databinding.ActivitySelectBinding
-import com.kuky.base.view.adapter.PicVpAdapter
+import com.kuky.base.view.adapter.PicSelectedResultAdapter
 import com.kuky.baselib.OnPermissionListener
 import com.kuky.baselib.baseClass.BaseActivity
 import com.kuky.baselib.baseUtils.ToastUtils
@@ -86,11 +86,11 @@ class SelectActivity : BaseActivity<ActivitySelectBinding>() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CHOOSE_CODE && resultCode == Activity.RESULT_OK) {
-            mViewBinding.picVp.adapter = PicVpAdapter(this@SelectActivity, Matisse.obtainResult(data))
+            PicSelectedResultAdapter(this@SelectActivity, Matisse.obtainResult(data), mViewBinding.picVp)
             mViewBinding.picVp.pageMargin = 10
-            mViewBinding.picVp.currentItem = 0
             mViewBinding.picVp.offscreenPageLimit = 3
             mViewBinding.picVp.setPageTransformer(true, ScaleTransformer(this@SelectActivity))
+            mViewBinding.indicator.isLoopAdapter(true)
             mViewBinding.indicator.setUpWithViewPager(mViewBinding.picVp)
         }
     }
