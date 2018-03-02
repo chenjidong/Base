@@ -18,6 +18,10 @@ class NewsActivity : BaseActivity<ActivityNewsBinding>() {
     private val fragments: MutableList<Fragment> = mutableListOf()
     private lateinit var linear: LinearLayout
 
+    override fun openTransparentStatus(): Boolean {
+        return false
+    }
+
     override fun enabledEventBus(): Boolean {
         return false
     }

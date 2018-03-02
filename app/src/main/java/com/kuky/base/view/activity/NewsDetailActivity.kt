@@ -18,6 +18,10 @@ import com.kuky.baselib.baseClass.BaseActivity
 
 class NewsDetailActivity : BaseActivity<ActivityNewsDetailBinding>() {
 
+    override fun openTransparentStatus(): Boolean {
+        return false
+    }
+
     override fun enabledEventBus(): Boolean {
         return false
     }

@@ -22,6 +22,10 @@ class SelectActivity : BaseActivity<ActivitySelectBinding>() {
 
     private val CHOOSE_CODE = 0x1001
 
+    override fun openTransparentStatus(): Boolean {
+        return false
+    }
+
     override fun enabledEventBus(): Boolean {
         return false
     }

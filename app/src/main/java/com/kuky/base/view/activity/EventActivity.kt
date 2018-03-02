@@ -10,6 +10,10 @@ import org.greenrobot.eventbus.EventBus
 
 class EventActivity : BaseActivity<ActivityEventBinding>() {
 
+    override fun openTransparentStatus(): Boolean {
+        return false
+    }
+
     override fun enabledEventBus(): Boolean {
         return false
     }

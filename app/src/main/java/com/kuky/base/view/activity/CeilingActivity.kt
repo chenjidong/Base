@@ -34,6 +34,10 @@ class CeilingActivity : BaseMvpActivity<CeilingContract.ICeilingView, CeilingPre
 
     private lateinit var decoration: SectionDecoration
 
+    override fun openTransparentStatus(): Boolean {
+        return false
+    }
+
     override fun enabledEventBus(): Boolean {
         return false
     }

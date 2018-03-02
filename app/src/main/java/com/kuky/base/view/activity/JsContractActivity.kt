@@ -20,6 +20,10 @@ import com.kuky.baselib.baseUtils.ToastUtils
 class JsContractActivity : BaseActivity<ActivityJsContractBinding>() {
     private lateinit var dialog: AlertDialog
 
+    override fun openTransparentStatus(): Boolean {
+        return false
+    }
+
     override fun enabledEventBus(): Boolean {
         return false
     }
