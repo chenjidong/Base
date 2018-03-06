@@ -1,6 +1,7 @@
 package com.kuky.baselib.baseUtils
 
 import android.content.Context
+import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 
@@ -38,5 +39,9 @@ object ApplicationUtils {
             e.printStackTrace()
         }
         return 0
+    }
+
+    fun isDebug(context: Context): Boolean {
+        return context.applicationInfo != null && (context.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE) != 0
     }
 }
