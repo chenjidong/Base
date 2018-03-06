@@ -174,9 +174,9 @@ abstract class BaseRvHeaderFooterAdapter<T : Any, VB : ViewDataBinding>(context:
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): BaseHolder {
         mViewBinding = DataBindingUtil.inflate(mInflater, getAdapterViewId(viewType), parent, false)
-        return if (haveHeader() && mHeaderBindings.get(viewType) != null) BaseHolder(mHeaderBindings.get(viewType).root)
-        else if (haveFooter() && mFooterBindings.get(viewType) != null) BaseHolder(mFooterBindings.get(viewType).root)
-        else BaseHolder(mViewBinding.root)
+        return if (haveHeader() && mHeaderBindings.get(viewType) != null) BaseHolder(mHeaderBindings.get(viewType))
+        else if (haveFooter() && mFooterBindings.get(viewType) != null) BaseHolder(mFooterBindings.get(viewType))
+        else BaseHolder(mViewBinding)
     }
 
     abstract fun getAdapterViewId(viewType: Int): Int
@@ -185,8 +185,8 @@ abstract class BaseRvHeaderFooterAdapter<T : Any, VB : ViewDataBinding>(context:
         if (!isHeader(position) && !isFooter(position)) {
             val pos = position - getHeaderCount()
             this.mCurrentPosition = pos
-            setVariable(mViewBinding, mData!![pos])
-            mViewBinding.executePendingBindings()
+            setVariable(holder.getBinding(), mData!![pos])
+            holder.getBinding().executePendingBindings()
 
             if (mCloseRecycler) {
                 holder.setIsRecyclable(false)
@@ -241,5 +241,11 @@ abstract class BaseRvHeaderFooterAdapter<T : Any, VB : ViewDataBinding>(context:
             lp.isFullSpan = isHeader(getRealPosition(holder)) || isFooter(getRealPosition(holder))
     }
 
-    class BaseHolder(view: View) : RecyclerView.ViewHolder(view)
+    class BaseHolder(viewBinding: ViewDataBinding) : RecyclerView.ViewHolder(viewBinding.root) {
+        private val mViewBinding = viewBinding
+
+        fun getBinding(): ViewDataBinding {
+            return mViewBinding
+        }
+    }
 }

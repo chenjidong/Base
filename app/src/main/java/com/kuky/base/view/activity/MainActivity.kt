@@ -53,7 +53,7 @@ open class MainActivity : BaseMvpActivity<MainContract.IMainView, MainPresenter,
     private var mDisposable: Disposable? = null
     private var readyExit = false
 
-    override fun openTransparentStatus(): Boolean {
+    override fun enableTransparentStatus(): Boolean {
         return false
     }
 

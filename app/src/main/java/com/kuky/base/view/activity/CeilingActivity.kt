@@ -34,7 +34,7 @@ class CeilingActivity : BaseMvpActivity<CeilingContract.ICeilingView, CeilingPre
 
     private lateinit var decoration: SectionDecoration
 
-    override fun openTransparentStatus(): Boolean {
+    override fun enableTransparentStatus(): Boolean {
         return false
     }
 
@@ -54,7 +54,7 @@ class CeilingActivity : BaseMvpActivity<CeilingContract.ICeilingView, CeilingPre
         mViewBinding.ceilingAct = this@CeilingActivity
 
         DaggerCeilingActivityComponent.builder()
-                .ceilingActivityModule(CeilingActivityModule(this@CeilingActivity, true))
+                .ceilingActivityModule(CeilingActivityModule(this@CeilingActivity))
                 .build().inject(this@CeilingActivity)
 
         mViewBinding.ceilList.setListPages(ceilAdapter, true, object : BaseRvHeaderFooterAdapter.OnItemClickListener {

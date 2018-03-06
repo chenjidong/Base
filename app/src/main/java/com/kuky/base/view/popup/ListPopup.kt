@@ -26,7 +26,7 @@ class ListPopup(context: Context, animStyle: Int = R.style.animationForBottomAnd
     }
 
     override fun initPopupView() {
-        adapter = ListAdapter(mContext!!, true)
+        adapter = ListAdapter(mContext!!)
         mViewBinding.listItems.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false)
         mViewBinding.listItems.itemAnimator = DefaultItemAnimator()
         mViewBinding.listItems.addItemDecoration(DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL))

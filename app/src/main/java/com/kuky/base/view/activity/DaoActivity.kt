@@ -34,7 +34,7 @@ class DaoActivity : BaseActivity<ActivityDaoBinding>() {
         where u.IDENTIFICATION_CODE="${C.IDENTIFICATION_CODE}" order by u._id
     """.trimIndent()
 
-    override fun openTransparentStatus(): Boolean {
+    override fun enableTransparentStatus(): Boolean {
         return false
     }
 

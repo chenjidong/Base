@@ -55,7 +55,7 @@ class NewsFragment : BaseMvpLazyLoadingFragment<NewsContract.INewsView, NewsPres
 
     override fun initFragment(savedInstanceState: Bundle?) {
         DaggerNewsFragmentComponent.builder()
-                .newsFragmentModule(NewsFragmentModule(this@NewsFragment, true))
+                .newsFragmentModule(NewsFragmentModule(this@NewsFragment))
                 .build().inject(this@NewsFragment)
 
         mViewBinding.newsListHandler.enabledLoadMore(false)

@@ -26,7 +26,7 @@ class ListDialog : BaseDialog<ListSelectBinding> {
     }
 
     override fun initDialogView() {
-        adapter = ListAdapter(mContext!!, true)
+        adapter = ListAdapter(mContext!!)
         mViewBinding.listItems.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false)
         mViewBinding.listItems.itemAnimator = DefaultItemAnimator()
         mViewBinding.listItems.addItemDecoration(DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL))

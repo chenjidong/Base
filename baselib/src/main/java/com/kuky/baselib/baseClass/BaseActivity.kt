@@ -23,7 +23,7 @@ abstract class BaseActivity<VB : ViewDataBinding> : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP && openTransparentStatus()) {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP && enableTransparentStatus()) {
             val decorView = window.decorView
             decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
                     View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
@@ -47,7 +47,7 @@ abstract class BaseActivity<VB : ViewDataBinding> : AppCompatActivity() {
         ActivityManager.removeActivity(this)
     }
 
-    abstract fun openTransparentStatus(): Boolean
+    abstract fun enableTransparentStatus(): Boolean
 
     abstract fun enabledEventBus(): Boolean
 
