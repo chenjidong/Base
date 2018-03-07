@@ -99,7 +99,7 @@ class CeilingActivity : BaseMvpActivity<CeilingContract.ICeilingView, CeilingPre
                             gv
                         } else null
                     }
-                }).setGroupHeight(ScreenUtils.dip2Px(this@CeilingActivity, 40f)).build()
+                }).setGroupHeight(ScreenUtils.dip2px(this@CeilingActivity, 40f)).build()
 
         mViewBinding.ceilList.updateData(ceilings)
         mViewBinding.ceilList.setHandlerState(ListHandlerView.LOAD_SUCCEED_STATE)

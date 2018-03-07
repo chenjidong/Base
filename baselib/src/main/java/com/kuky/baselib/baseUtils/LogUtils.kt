@@ -16,7 +16,7 @@ object LogUtils {
     }
 
     private fun createLog(logMsg: String): String {
-        return "${methodName}(${className}:${lineNumber}): $logMsg"
+        return "$methodName($className:$lineNumber): $logMsg"
     }
 
     private fun getMethodName(throwable: Throwable) {

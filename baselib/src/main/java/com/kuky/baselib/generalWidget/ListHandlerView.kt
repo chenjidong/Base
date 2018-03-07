@@ -6,6 +6,7 @@ import android.databinding.ViewDataBinding
 import android.graphics.Color
 import android.graphics.drawable.AnimationDrawable
 import android.support.annotation.DrawableRes
+import android.support.annotation.NonNull
 import android.support.v7.widget.*
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -59,10 +60,13 @@ class ListHandlerView<T : Any> : RelativeLayout {
         hideAllPage()
 
         when (mProgressStyle) {
-            HORIZONTAL_PROGRESS -> mHandlerBinding.loadingPage.setImageResource(R.drawable.ic_horizontal_loading_progress)
+            HORIZONTAL_PROGRESS -> {
+                mHandlerBinding.loadingPage.setImageResource(R.drawable.ic_horizontal_loading_progress)
+                mHandlerBinding.loadingPage.setBackgroundColor(Color.TRANSPARENT)
+            }
             CIRCLE_PROGRESS -> {
                 mHandlerBinding.loadingPage.setImageResource(R.drawable.ic_circle_loading_progress)
-                mHandlerBinding.loadingPage.setBackgroundColor(Color.BLACK)
+                mHandlerBinding.loadingPage.setBackgroundColor(Color.parseColor("#75000000"))
             }
         }
 
@@ -87,13 +91,19 @@ class ListHandlerView<T : Any> : RelativeLayout {
     fun setLoadingStyle(style: Int) {
         this.mProgressStyle = style
         when (mProgressStyle) {
-            HORIZONTAL_PROGRESS -> mHandlerBinding.loadingPage.setImageResource(R.drawable.ic_horizontal_loading_progress)
-            CIRCLE_PROGRESS -> mHandlerBinding.loadingPage.setImageResource(R.drawable.ic_circle_loading_progress)
+            HORIZONTAL_PROGRESS -> {
+                mHandlerBinding.loadingPage.setImageResource(R.drawable.ic_horizontal_loading_progress)
+                mHandlerBinding.loadingPage.setBackgroundColor(Color.TRANSPARENT)
+            }
+            CIRCLE_PROGRESS -> {
+                mHandlerBinding.loadingPage.setImageResource(R.drawable.ic_circle_loading_progress)
+                mHandlerBinding.loadingPage.setBackgroundColor(Color.parseColor("#75000000"))
+            }
         }
         (mHandlerBinding.loadingPage.drawable as AnimationDrawable).start()
     }
 
-    fun replaceLoadingProgress(drawableRes: Int) {
+    fun replaceLoadingProgress(@DrawableRes drawableRes: Int) {
         mHandlerBinding.loadingPage.setImageResource(drawableRes)
         (mHandlerBinding.loadingPage.drawable as AnimationDrawable).start()
     }
@@ -111,9 +121,9 @@ class ListHandlerView<T : Any> : RelativeLayout {
         mHandlerBinding.reloadPage.setImageResource(drawableRes)
     }
 
-    fun setListPages(adapter: BaseRvHeaderFooterAdapter<T, ViewDataBinding>, showBackTop: Boolean,
+    fun setListPages(@NonNull adapter: BaseRvHeaderFooterAdapter<T, ViewDataBinding>, showBackTop: Boolean,
                      listener: BaseRvHeaderFooterAdapter.OnItemClickListener?,
-                     rvManager: RecyclerView.LayoutManager,
+                     @NonNull rvManager: RecyclerView.LayoutManager,
                      anim: RecyclerView.ItemAnimator?,
                      decoration: RecyclerView.ItemDecoration?) {
 
@@ -155,7 +165,7 @@ class ListHandlerView<T : Any> : RelativeLayout {
                         }
 
                         is StaggeredGridLayoutManager -> {
-                            val firstVisibleItemPositions = IntArray(0)
+                            val firstVisibleItemPositions = IntArray(1)
                             rvManager.findFirstVisibleItemPositions(firstVisibleItemPositions)
                             when (newState) {
                                 RecyclerView.SCROLL_STATE_IDLE -> {
@@ -190,8 +200,8 @@ class ListHandlerView<T : Any> : RelativeLayout {
         mHandlerBinding.listContainer.addItemDecoration(decoration)
     }
 
-    fun setBackTopButtonResource(resId: Int) {
-        mHandlerBinding.backTop.setBackgroundResource(resId)
+    fun setBackTopButtonResource(@DrawableRes drawableRes: Int) {
+        mHandlerBinding.backTop.setBackgroundResource(drawableRes)
     }
 
     fun addHeader(headerBinding: ViewDataBinding) {
@@ -276,10 +286,6 @@ class ListHandlerView<T : Any> : RelativeLayout {
 
     fun enabledLoadMore(enabledLoadMore: Boolean = true) {
         getRefreshLoadContainer().isEnableLoadmore = enabledLoadMore
-    }
-
-    fun enabledAutoRefresh(enabledAutoRefresh: Boolean = false) {
-        getRefreshLoadContainer().isEnableAutoLoadmore = enabledAutoRefresh
     }
 
     fun enabledAutoLoadMore(enabledAutoLoadMore: Boolean = false) {

@@ -2,11 +2,17 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Base.iml" filepath="$PROJECT_DIR$/Base.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Base.iml" filepath="$PROJECT_DIR$/.idea/Base.iml" />
+      <module fileurl="file://E:\AndroidStudioProjects\Base\Base.iml" filepath="E:\AndroidStudioProjects\Base\Base.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://E:\AndroidStudioProjects\Base\app\app.iml" filepath="E:\AndroidStudioProjects\Base\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/baselib/baselib.iml" filepath="$PROJECT_DIR$/baselib/baselib.iml" />
+      <module fileurl="file://E:\AndroidStudioProjects\Base\baselib\baselib.iml" filepath="E:\AndroidStudioProjects\Base\baselib\baselib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/baselib-java/baselib-java.iml" filepath="$PROJECT_DIR$/baselib-java/baselib-java.iml" />
       <module fileurl="file://$PROJECT_DIR$/libarieslab/libarieslab.iml" filepath="$PROJECT_DIR$/libarieslab/libarieslab.iml" />
+      <module fileurl="file://E:\AndroidStudioProjects\Base\libarieslab\libarieslab.iml" filepath="E:\AndroidStudioProjects\Base\libarieslab\libarieslab.iml" />
       <module fileurl="file://$PROJECT_DIR$/loop&amp;&amp;picker/loop&amp;&amp;picker.iml" filepath="$PROJECT_DIR$/loop&amp;&amp;picker/loop&amp;&amp;picker.iml" />
+      <module fileurl="file://E:\AndroidStudioProjects\Base\loop&amp;&amp;picker\loop&amp;&amp;picker.iml" filepath="E:\AndroidStudioProjects\Base\loop&amp;&amp;picker\loop&amp;&amp;picker.iml" />
     </modules>
   </component>
 </project>

@@ -22,7 +22,7 @@ abstract class BaseListViewAdapter<T : Any, VB : ViewDataBinding>(context: Conte
         this.mInflater = LayoutInflater.from(mContext)
     }
 
-    fun setAdapterData(data: MutableList<T>) {
+    fun updateAdapterData(data: MutableList<T>) {
         this.mData = data
         notifyDataSetChanged()
     }
@@ -59,7 +59,7 @@ abstract class BaseListViewAdapter<T : Any, VB : ViewDataBinding>(context: Conte
         else mData!!.size
     }
 
-    abstract fun setVariable(mViewBinding: VB, position: Int)
+    abstract fun setVariable(viewBinding: VB, position: Int)
 
     abstract fun getItemLayoutId(): Int
 }

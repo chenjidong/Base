@@ -27,14 +27,22 @@ object ScreenUtils {
         return context.resources.displayMetrics.density
     }
 
-    fun dip2Px(context: Context, dpValue: Float): Int {
+    fun dip2px(context: Context, dpValue: Float): Int {
         val scale = getScreenDensity(context)
         return (dpValue * scale + 0.5f).toInt()
     }
 
-    fun px2Dip(context: Context, pxValue: Float): Int {
+    fun sp2px(context: Context, spValue: Float): Int {
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, spValue, context.resources.displayMetrics).toInt()
+    }
+
+    fun px2dip(context: Context, pxValue: Float): Int {
         val scale = getScreenDensity(context)
         return (pxValue / scale + 0.5f).toInt()
+    }
+
+    fun px2sp(context: Context, pxValue: Float): Float {
+        return (pxValue / context.resources.displayMetrics.scaledDensity)
     }
 
     fun getScreenSize(context: Context): IntArray {

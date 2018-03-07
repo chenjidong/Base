@@ -1,1 +1,1 @@
-include ':app', ':baselib', ':libarieslab', ':loop&&picker'
+include ':app', ':baselib', ':libarieslab', ':loop&&picker', ':baselib-java'

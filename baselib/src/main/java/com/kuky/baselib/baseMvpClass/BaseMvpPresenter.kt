@@ -17,4 +17,12 @@ abstract class BaseMvpPresenter<in V : BaseMvpViewImpl> {
     fun onResume() {
 
     }
+
+    fun onStop() {
+
+    }
+
+    fun onPause() {
+
+    }
 }

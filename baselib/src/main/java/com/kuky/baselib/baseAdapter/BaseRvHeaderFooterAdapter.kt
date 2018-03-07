@@ -99,6 +99,13 @@ abstract class BaseRvHeaderFooterAdapter<T : Any, VB : ViewDataBinding>(context:
         }
     }
 
+    fun addData(position: Int, data: T) {
+        if (mData != null) {
+            this.mData!!.add(position, data)
+            notifyDataSetChanged()
+        }
+    }
+
     fun addAllData(data: MutableList<T>) {
         if (mData != null) {
             this.mData!!.addAll(data)

@@ -64,7 +64,7 @@ class IndicatorView : View, ViewPager.OnPageChangeListener {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
 
         val width = (mIndicatorRadius + mStrokeWidth) * 2 * mCount + mSpace * (mCount - 1)
-        val height = ((mIndicatorRadius + mStrokeWidth) * 2)
+        val height = (mIndicatorRadius + mStrokeWidth) * 2
         setMeasuredDimension(width.toInt(), height.toInt())
         measureIndicators()
     }
@@ -159,6 +159,11 @@ class IndicatorView : View, ViewPager.OnPageChangeListener {
         invalidate()
     }
 
+    private fun setSelectPosition(position: Int) {
+        this.mSelectPosition = position
+        invalidate()
+    }
+
     override fun onPageScrollStateChanged(state: Int) {
 
     }
@@ -168,8 +173,7 @@ class IndicatorView : View, ViewPager.OnPageChangeListener {
     }
 
     override fun onPageSelected(position: Int) {
-        mSelectPosition = if (mIsLoopAdapter) position - 1 else position
-        invalidate()
+        setSelectPosition(if (mIsLoopAdapter) position - 1 else position)
     }
 
     inner class Indicator {

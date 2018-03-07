@@ -14,19 +14,19 @@ class TagLayout(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int
     /**
      * 垂直间距
      */
-    private val verticalSpace: Float
+    private val mVerticalSpace: Float
     /**
      * 水平间距
      */
-    private val horizontalSpace: Float
+    private val mHorizontalSpace: Float
     /**
      * 是否平分剩余空间
      */
-    private val divRemain: Boolean
+    private val mDivRemain: Boolean
     /**
      * 最大显示行数
      */
-    private val maxLines: Int
+    private val mMaxLines: Int
 
     val children: List<View>
         get() {
@@ -39,10 +39,10 @@ class TagLayout(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int
 
     init {
         val array = context.obtainStyledAttributes(attrs, R.styleable.TagLayout)
-        maxLines = array.getInteger(R.styleable.TagLayout_max_line, 5)
-        horizontalSpace = array.getDimension(R.styleable.TagLayout_horizontal_space, 0f)
-        verticalSpace = array.getDimension(R.styleable.TagLayout_vertical_space, 0f)
-        divRemain = array.getBoolean(R.styleable.TagLayout_div_avg, true)
+        mMaxLines = array.getInteger(R.styleable.TagLayout_max_line, 5)
+        mHorizontalSpace = array.getDimension(R.styleable.TagLayout_horizontal_space, 0f)
+        mVerticalSpace = array.getDimension(R.styleable.TagLayout_vertical_space, 0f)
+        mDivRemain = array.getBoolean(R.styleable.TagLayout_div_avg, true)
         array.recycle()
     }
 
@@ -59,14 +59,14 @@ class TagLayout(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int
             measureChild(child, widthMeasureSpec, heightMeasureSpec)
 
             if (mCurrentLine == null) {
-                mCurrentLine = Line(maxWidth, horizontalSpace)
+                mCurrentLine = Line(maxWidth, mHorizontalSpace)
                 mCurrentLine.addChild(child)
                 mLines.add(mCurrentLine)
             } else {
                 if (mCurrentLine.canAddChild(child)) {
                     mCurrentLine.addChild(child)
                 } else {
-                    mCurrentLine = Line(maxWidth, horizontalSpace)
+                    mCurrentLine = Line(maxWidth, mHorizontalSpace)
                     mCurrentLine.addChild(child)
                     mLines.add(mCurrentLine)
                 }
@@ -74,7 +74,7 @@ class TagLayout(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int
         }
 
         var height = paddingTop + paddingBottom + mLines.indices.sumBy { mLines[it].height }
-        height += ((mLines.size - 1) * verticalSpace).toInt()
+        height += ((mLines.size - 1) * mVerticalSpace).toInt()
         if (mLines.isEmpty()) visibility = View.GONE
         setMeasuredDimension(width, height)
     }
@@ -91,7 +91,7 @@ class TagLayout(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int
             line.layout(t, l)
             t += line.height
             if (i != mLines.size - 1)
-                t = (t + verticalSpace).toInt()
+                t = (t + mVerticalSpace).toInt()
         }
     }
 
@@ -133,7 +133,7 @@ class TagLayout(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int
                 var measuredWidth = child.measuredWidth
                 val measuredHeight = child.measuredHeight
 
-                if (divRemain) {
+                if (mDivRemain) {
                     child.measure(View.MeasureSpec.makeMeasureSpec(measuredWidth + avg, View.MeasureSpec.EXACTLY),
                             View.MeasureSpec.makeMeasureSpec(measuredHeight, View.MeasureSpec.EXACTLY))
                 }

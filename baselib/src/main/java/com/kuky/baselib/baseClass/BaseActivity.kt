@@ -23,6 +23,7 @@ abstract class BaseActivity<VB : ViewDataBinding> : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (enabledEventBus()) EventBus.getDefault().register(this)
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP && enableTransparentStatus()) {
             val decorView = window.decorView
             decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
@@ -34,7 +35,6 @@ abstract class BaseActivity<VB : ViewDataBinding> : AppCompatActivity() {
             if (supportActionBar != null)
                 supportActionBar!!.hide()
         }
-        if (enabledEventBus()) EventBus.getDefault().register(this)
         ActivityManager.addActivity(this)
         mViewBinding = DataBindingUtil.setContentView(this, getLayoutId())
         initActivity(savedInstanceState)
@@ -47,9 +47,9 @@ abstract class BaseActivity<VB : ViewDataBinding> : AppCompatActivity() {
         ActivityManager.removeActivity(this)
     }
 
-    abstract fun enableTransparentStatus(): Boolean
-
     abstract fun enabledEventBus(): Boolean
+
+    abstract fun enableTransparentStatus(): Boolean
 
     abstract fun getLayoutId(): Int
 

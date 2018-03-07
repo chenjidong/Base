@@ -16,8 +16,8 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment() {
     protected lateinit var mViewBinding: VB
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        mViewBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
         if (enabledEventBus()) EventBus.getDefault().register(this)
+        mViewBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
         initFragment(savedInstanceState)
         setListener()
         return mViewBinding.root

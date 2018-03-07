@@ -17,13 +17,14 @@ import org.greenrobot.eventbus.EventBus
 /**
  * @author Kuky
  */
-abstract class BaseMvpActivity<V : BaseMvpViewImpl, P : BaseMvpPresenter<V>, VB : ViewDataBinding> : AppCompatActivity() {
+abstract class BaseMvpActivity<in V : BaseMvpViewImpl, P : BaseMvpPresenter<V>, VB : ViewDataBinding> : AppCompatActivity() {
     protected lateinit var mViewBinding: VB
     protected lateinit var mPresenter: P
     private var mOnPermissionLister: OnPermissionListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (enabledEventBus()) EventBus.getDefault().register(this)
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP && enableTransparentStatus()) {
             val decorView = window.decorView
             decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
@@ -35,7 +36,6 @@ abstract class BaseMvpActivity<V : BaseMvpViewImpl, P : BaseMvpPresenter<V>, VB 
                 supportActionBar!!.hide()
         }
         ActivityManager.addActivity(this)
-        if (enabledEventBus()) EventBus.getDefault().register(this)
         mViewBinding = DataBindingUtil.setContentView(this, getLayoutId())
         initActivity(savedInstanceState)
         mPresenter = initPresenter()
@@ -49,6 +49,16 @@ abstract class BaseMvpActivity<V : BaseMvpViewImpl, P : BaseMvpPresenter<V>, VB 
         mPresenter.onResume()
     }
 
+    override fun onStop() {
+        super.onStop()
+        mPresenter.onStop()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mPresenter.onPause()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         if (enabledEventBus()) EventBus.getDefault().unregister(this)
@@ -56,9 +66,9 @@ abstract class BaseMvpActivity<V : BaseMvpViewImpl, P : BaseMvpPresenter<V>, VB 
         ActivityManager.removeActivity(this)
     }
 
-    abstract fun enableTransparentStatus(): Boolean
-
     abstract fun enabledEventBus(): Boolean
+
+    abstract fun enableTransparentStatus(): Boolean
 
     abstract fun initPresenter(): P
 

@@ -12,13 +12,13 @@ import org.greenrobot.eventbus.EventBus
 /**
  * @author Kuky
  */
-abstract class BaseMvpFragment<V : BaseMvpViewImpl, P : BaseMvpPresenter<V>, VB : ViewDataBinding> : Fragment() {
+abstract class BaseMvpFragment<in V : BaseMvpViewImpl, P : BaseMvpPresenter<V>, VB : ViewDataBinding> : Fragment() {
     protected lateinit var mViewBinding: VB
     protected lateinit var mPresenter: P
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        mViewBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
         if (enabledEventBus()) EventBus.getDefault().register(this)
+        mViewBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
         initFragment(savedInstanceState)
         mPresenter = initPresenter()
         mPresenter.attachView(this as V)
@@ -30,6 +30,16 @@ abstract class BaseMvpFragment<V : BaseMvpViewImpl, P : BaseMvpPresenter<V>, VB 
     override fun onResume() {
         super.onResume()
         mPresenter.onResume()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mPresenter.onStop()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mPresenter.onPause()
     }
 
     override fun onDestroy() {

@@ -42,7 +42,7 @@ class NewsActivity : BaseActivity<ActivityNewsBinding>() {
         linear = mViewBinding.newsTab.getChildAt(0) as LinearLayout
         linear.showDividers = LinearLayout.SHOW_DIVIDER_MIDDLE
         linear.dividerDrawable = ContextCompat.getDrawable(this@NewsActivity, R.drawable.shape_tab_divider_gray)
-        linear.dividerPadding = ScreenUtils.dip2Px(this@NewsActivity, 15f)
+        linear.dividerPadding = ScreenUtils.dip2px(this@NewsActivity, 15f)
     }
 
     override fun setListener() {
