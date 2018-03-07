@@ -75,7 +75,7 @@ class NewsFragment : BaseMvpLazyLoadingFragment<NewsContract.INewsView, NewsPres
 
     }
 
-    override fun lazyLoad() {
+    override fun lazyLoading() {
         mPresenter.setNewsToUi()
     }
 
